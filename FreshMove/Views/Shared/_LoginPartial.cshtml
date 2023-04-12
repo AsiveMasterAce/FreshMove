@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav pl-3">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    </li>
+    <li class="nav-item">
+        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+        <li class="nav-item dropdown">
+            <a asp-action="" asp-controller="" class="nav-link dropdown-toggle fs-5" data-bs-toggle="dropdown" id="ProfileToggle" aria-expanded="false">
+
+                <i class="bi bi-person-circle"></i>
+			
+             </a>
+            <ul class="dropdown-menu pull-right" style="right: 0; left: auto;" aria-labelledby="ProfileToggle">
+                <li><a class="nav-link text-dark dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                <li><a class="nav-link text-dark dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+
+            </ul>
+            
+        </li>
+        <li class="nav-iten">
+
+            <a asp-action="" asp-controller="" class="nav-link fs-5"> <i class="bi bi-cart"></i> <span class="bg-danger rounded px-1 text-white"> 0</span></a>
+        </li>
+       
+    
+}
+</ul>
+<script>
+
+    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+    var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl)
+    })
+</script>
