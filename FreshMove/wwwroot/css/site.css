@@ -1,4 +1,82 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Poppins:wght@500&display=swap');
+
+:root {
+    --primary: #0a9396;
+    --secondary: #005f73;
+    --lighterBlue: #94d2bd;
+    --danger: #ae2012;
+    --Green: #606c38;
+    --redish: #e76f51;
+    --grey: #f5f3f4;
+    --black: #242423;
+}
+
+* {
+    box-sizing: border-box;
+}
+.btn {
+    border: none;
+    padding: 10px 20px 10px 20px;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: none;
+    text-decoration: none;
+}
+.btn-black {
+    background-color: var(--black);
+    border-color: none;
+    text-decoration: none;
+    color:white;
+}
+.btn-black:hover {
+    background-color: var(--grey);
+    border-color: none;
+    text-decoration: none;
+    color:black;
+}
+.bg-green{
+    background-color: var(--Green);
+}
+.bg-redish{
+    background-color: var(--redish);
+}
+.bg-grey{
+    background-color: var(--redish);
+}
+
+.btn-primary:hover {
+        background-color: var(--secondary);
+        border: none;
+}
+
+.btn-primary:focus {
+        background-color: var(--primary);
+        border: none;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+}
+
+span {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.light {
+    color: var(--lighterBlue);
+}
+
+.primary {
+    color: var(--primary);
+}
+
+.danger {
+    color: var(--danger);
+}
+
 html {
   font-size: 14px;
 }
@@ -9,12 +87,15 @@ html {
   }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
+
 
 body {
-    margin-bottom: 60px;
-  /*  font-family: 'Poppins', sans-serif;*/
+    margin-bottom:20px;
+    margin:0;
+    padding:0;
+    font-family: 'Poppins', sans-serif;
 }
+
+
+
+
