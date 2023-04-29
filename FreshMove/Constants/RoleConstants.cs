@@ -1,10 +1,8 @@
 ﻿namespace FreshMove.Constants
 {
-    public class UserRoles
+    public class RoleConstants
     {
-
         public const string Admin = "Admin";
-        
 
     }
 }
