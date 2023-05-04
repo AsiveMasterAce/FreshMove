@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FreshMove.Models.users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SalesOrders.Models.users;
@@ -23,6 +24,9 @@ namespace FreshMove.Data
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
 
         }
+
+
+        public DbSet<AdminUser> AdminUsers { get; set; }
 
 
     }
