@@ -1,5 +1,4 @@
-﻿
-using FreshMove.Constants;
+﻿using FreshMove.Constants;
 using System.ComponentModel.DataAnnotations;
 
 namespace FreshMove.Models.ViewModels.Admin
@@ -30,7 +29,7 @@ namespace FreshMove.Models.ViewModels.Admin
 
         [Required]
         [Display(Name = "Race")]
-        public Race Gace { get; set; }
+        public Race Race { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace SalesOrders.Models.users
+namespace FreshMove.Models.users
 {
     public class ApplicationUser : IdentityUser
     {

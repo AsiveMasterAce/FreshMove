@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SalesOrders.Models.users;
+using FreshMove.Models.users;
 
 namespace FreshMove.Data
 {
