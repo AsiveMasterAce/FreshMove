@@ -1,7 +1,7 @@
 using FreshMove.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SalesOrders.Models.users;
+using FreshMove.Models.users;
 
 var builder = WebApplication.CreateBuilder(args);
 
