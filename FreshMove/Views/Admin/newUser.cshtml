@@ -1,17 +1,23 @@
 ﻿@using FreshMove.Constants;
-@model FreshMove.Models.ViewModels.newUserViewModel
+@model FreshMove.Models.users.ApplicationUser
 
 @{
-    ViewData["Title"] = "newUser";
+    ViewData["Title"] = "Create New User";
 }
 
-
-
-
 <div class="container mt-4">
-  
+  <div>
+        @foreach (var _user in ViewBag.Users)
+        {
+            <div class="container">
+                <p> @_user.Email</p>
+
+
+            </div>
+        }
+  </div>
     
-        <form asp-action="newUser">
+        <form asp-action="CreateNewUser">
             <h1> Add A New User</h1>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -29,11 +35,39 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="userRole" class="control-label"></label>
-                <select asp-for="userRole" class="form-control" asp-items="Html.GetEnumSelectList<UserRole>()"></select>
-                <span asp-validation-for="userRole" class="text-danger"></span>
+           
+        <div class="form-group mb-4">
+            <label asp-for="PhysicalAddress" class="control-label"></label>
+            <input asp-for="PhysicalAddress" class="form-control" />
+            <span asp-validation-for="PhysicalAddress" class="text-danger"></span>
+        </div>
+        <div class="row mb-4">
+            <div class="col-6 form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
+            <div class="col-6 form-group">
+                <label asp-for="Race" class="control-label"></label>
+                <select asp-for="Race" class="form-control" asp-items="Html.GetEnumSelectList<Race>()"></select>
+                <span asp-validation-for="Race" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserRole" class="control-label"></label>
+            <select asp-for="UserRole" class="form-control" asp-items="Html.GetEnumSelectList<UserRole>()"></select>
+            <span asp-validation-for="UserRole" class="text-danger"></span>
+        </div>
+        <div class="form-group py-2">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group py-2 ">
+            <label asp-for="ConfirmPassword" class="control-label"></label>
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
             <div class="form-group py-4">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
