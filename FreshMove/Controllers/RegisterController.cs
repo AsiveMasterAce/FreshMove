@@ -5,8 +5,6 @@ using FreshMove.Models.ViewModels.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using FreshMove.Models.users;
-using System.Drawing.Printing;
 
 namespace FreshMove.Controllers
 {
@@ -16,16 +14,15 @@ namespace FreshMove.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<RegisterController> _logger;
-        private readonly IConfiguration _configuration;
 
-        public RegisterController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context, ILogger<RegisterController> logger, IConfiguration configuration)
+        public RegisterController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context, ILogger<RegisterController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _logger = logger;
-            _configuration = configuration;
         }
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Admin()
@@ -35,44 +32,18 @@ namespace FreshMove.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-
-        public async Task<IActionResult> Admin(RegisterAdminViewModel model)
+        public async Task<IActionResult> Admin(ApplicationUser model)
         {
-
+            model.UserName = model.Email;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(model, model.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, RoleConstants.Admin);
-
-
-                    var Admin = new AdminUser
-                    {
-                        UserID = user.Id,
-                        Email = model.Email,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Password = model.Password,
-                        Gender = model.Gender,
-                        Race= model.Race,
-                        PhysicalAddress = model.PhysicalAddress,
-                        CreatedOn= DateTime.Now,
-                        Archived=false,
-                       
-
-                    };
-                    _context.Add(Admin);
+                    await _userManager.AddToRoleAsync(model, RoleConstants.Admin);
                     await _context.SaveChangesAsync();
                     _logger.LogInformation("User Created a new account with password");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(model, isPersistent: false);
                     return RedirectToAction("Index", "Admin");
 
                 }

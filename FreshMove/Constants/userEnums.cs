@@ -28,10 +28,9 @@ namespace FreshMove.Constants
         [Display(Name = "Admin")]
         Admin,
         [Display(Name = "Stock Manager")]
-        stockManager
-        
-
-
+        StockManager,
+        [Display(Name = "Sales Manager")]
+        SalesManager,
+        Customer
   }
-
 }

@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using FreshMove.Models.users;
 
 namespace FreshMove.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -25,9 +24,6 @@ namespace FreshMove.Data
 
         }
 
-
-        public DbSet<AdminUser> AdminUsers { get; set; }
-
-
+        public DbSet<Customer> Customers { get; set; }
     }
 }
