@@ -9,7 +9,7 @@
     --redish: #e76f51;
     --grey: #f5f3f4;
     --black: #242423;
-    --nav-bg: #dad7cd;
+    --nav-bg: #3a5a40;
     --box-shadow: 0 0 1rem .5rem rgba(0,0,0,0.02);
     --link-color: #3a5a40;
     --spacer-1: .25rem;
@@ -24,6 +24,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
+   
 }
 
 * {
@@ -96,29 +97,39 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--grey);
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
-
+.nav-link:hover {
+        color: #a3b18a;
+ }
 .bg-pic{
     background-image:url("../img/Jumbo3.png");
 }
-
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #588157;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem #588157b0;
+}
+/*Navigation for users*/
 .navside {
     background-color: var(--nav-bg);
     box-shadow: var(--box-shadow);
-   
-    
 }
 
-    .navside > .container, .navside > .container-fluid {
+.navside > .container, .navside > .container-fluid {
         display: flex;
         padding-top: var(--spacer-3);
         padding-bottom: var(--spacer-3);
         text-align: center
-    }
+}
+
 
 .navside-nav {
     display: flex;
@@ -213,4 +224,9 @@ html {
      margin-top: var(--spacer-5)
 
  }
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
 }
