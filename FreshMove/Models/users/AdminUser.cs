@@ -4,7 +4,7 @@ using FreshMove.Constants;
 
 namespace FreshMove.Models.users
 {
-    public class AdminUser
+    public class AdminUser 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Id { get; set; } = $"{Guid.NewGuid()}{Guid.NewGuid()}";

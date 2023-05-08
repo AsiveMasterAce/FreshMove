@@ -23,5 +23,15 @@ namespace FreshMove.Constants
     [Display(Name = "Other")]
      Other
   }
+  public enum UserRole
+  {
+        [Display(Name = "Admin")]
+        Admin,
+        [Display(Name = "Stock Manager")]
+        stockManager
+        
+
+
+  }
 
 }
