@@ -48,11 +48,11 @@
                     i++;
                 <tr>
                         <th>@i </th>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
+                        <td class="text-capitalize">@user.FirstName</td>
+                        <td class="text-capitalize" >@user.LastName</td>
                         <td>@user.Email</td>
                         <td>@user.UserRole</td>
-                        <td>@user.Gender</td>
+                        <td class="text-capitalize">@user.Gender</td>
                         <td>@user.Race</td>
                         <td>
                         <a asp-action="" asp-controller="Admin" asp-route-id="@user.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |

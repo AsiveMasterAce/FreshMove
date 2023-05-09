@@ -44,20 +44,26 @@ namespace FreshMove.Controllers
             return View();
         }
 
+        [HttpPost]
+
         public async Task<ActionResult> CreateNewUser(ApplicationUser model)
         {
             model.UserName = model.Email;
             if (ModelState.IsValid)
             {
                 var result = await _userManager.CreateAsync(model, model.Password);
+
                 if (result.Succeeded)
                 {
-                    if (model.UserRole == UserRole.SalesManager)
+                    if (model.UserRole == UserRole.StockManager)
+                    {
+                      await _userManager.AddToRoleAsync(model, RoleConstants.StockManager);
+                    } 
+                    else if (model.UserRole == UserRole.SalesManager) 
                     {
                         await _userManager.AddToRoleAsync(model, RoleConstants.SalesManager);
-                    } else if (model.UserRole == UserRole.StockManager) {
-                        await _userManager.AddToRoleAsync(model, RoleConstants.SalesManager);
                     }
+
                     await _context.SaveChangesAsync();
                     _logger.LogInformation("User Created a new account with password");
                   
