@@ -22,6 +22,16 @@ namespace FreshMove.Controllers
                 {
                     return RedirectToAction("Index", "Admin");
                 }
+                else if(User.IsInRole(RoleConstants.SalesManager))
+                {
+                    return RedirectToAction("Index", "SalesManager");
+
+                }
+                else if(User.IsInRole(RoleConstants.StockManager))
+                {
+                    return RedirectToAction("Index", "StockManager");
+
+                }
 
             }
             return View();

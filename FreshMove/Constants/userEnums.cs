@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
+
 namespace FreshMove.Constants
 {
   public enum Gender
@@ -31,6 +33,8 @@ namespace FreshMove.Constants
         StockManager,
         [Display(Name = "Sales Manager")]
         SalesManager,
+        [Display(Name="Customer")]
         Customer
+     
   }
 }
