@@ -4,7 +4,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var user = await UserManager.GetUserAsync(User);
-
+    ViewData["Title"] = "Stock Manager Dashboard";
 }
 
 
