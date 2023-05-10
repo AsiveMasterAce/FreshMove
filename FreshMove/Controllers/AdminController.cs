@@ -2,6 +2,7 @@
 using FreshMove.Data;
 using FreshMove.Models.users;
 using FreshMove.Models.ViewModels;
+using FreshMove.Models.ViewModels.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,7 @@ namespace FreshMove.Controllers
         }
 
         [HttpPost]
-
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateNewUser(ApplicationUser model)
         {
             model.UserName = model.Email;
@@ -75,6 +76,71 @@ namespace FreshMove.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+            return View(model);
+        }
+        public IActionResult EditUser([FromRoute] string Id)
+        {
+            var user = _context.Users.Where(Users => Users.Id == Id && Users.Archived==false).FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var _model = new EditUserViewModel
+            {
+                Id = Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhysicalAddress = user.PhysicalAddress,
+                Password = user.Password,
+                ConfirmPassword = user.ConfirmPassword,
+                CreatedOn = user.CreatedOn,
+                Gender = user.Gender,
+                Race = user.Race,
+                UserRole = user.UserRole,
+                Archived = user.Archived,
+                Email= user.Email,
+                
+            };
+            return View(_model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<ActionResult> EditUser(EditUserViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var user = _context.Users.Where(Users => Users.Id==model.Id).FirstOrDefault();
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.PhysicalAddress = model.PhysicalAddress;
+                user.Password = model.Password;
+                user.Email = model.Email;
+                user.Archived = model.Archived;
+                user.Password= model.Password;
+                user.Race = model.Race;
+                user.UserRole = model.UserRole;
+                user.Gender = model.Gender;
+                user.CreatedOn = model.CreatedOn;
+
+
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Users", "Admin");
+
+
+            }
+
             return View(model);
         }
 
