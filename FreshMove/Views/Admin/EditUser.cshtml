@@ -1,34 +1,37 @@
 ﻿@using FreshMove.Constants;
-@model FreshMove.Models.users.ApplicationUser
+@model FreshMove.Models.ViewModels.Admin.EditUserViewModel;
 
 @{
-    ViewData["Title"] = "Create New User";
+    ViewData["Title"] = "Edit User";
 }
 
 <div class="container mt-5">
-  <div>
-      
-  </div>
-    
-        <form asp-action="CreateNewUser">
-            <h1> Add A New User</h1>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-           
+    <div class="d-flex">
+        
+     
+    </div>
+
+    <form asp-action="EditUser">
+        <h1> Edit Application User </h1>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input asp-for="Id" value="@Model.Id" hidden />
+        <div class="form-group">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
         <div class="form-group mb-4">
             <label asp-for="PhysicalAddress" class="control-label"></label>
             <input asp-for="PhysicalAddress" class="form-control" />
@@ -61,15 +64,17 @@
             <input asp-for="ConfirmPassword" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
-            <div class="form-group py-4">
-                <input type="submit" value="Create" class="btn btn-primary" />
-             <a class="btn btn-danger" asp-action="Users" asp-controller="Admin">Back</a>
-            </div>
-        </form>
+        <div class="form-group py-4">
+            <input type="submit" value="Edit User" class="btn btn-primary" />
+            <a class="btn btn-danger" asp-action="Users" asp-controller="Admin">Back</a>
+        </div>
+    </form>
 </div>
 
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
