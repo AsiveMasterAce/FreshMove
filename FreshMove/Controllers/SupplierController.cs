@@ -77,12 +77,15 @@ namespace FreshMove.Controllers
                     return NotFound();
 
                 }
+                supplier.Archived = model.Archived;
+                supplier.Name= model.Name;
+                supplier.Email= model.Email;
+                supplier.PhysicalAddress= model.PhysicalAddress;
 
-                _context.Suppliers.Update(model);
+                _context.Suppliers.Update(supplier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Suppliers");
             }
-
 
             return View(model);
 
