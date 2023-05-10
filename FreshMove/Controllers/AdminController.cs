@@ -63,6 +63,9 @@ namespace FreshMove.Controllers
                     else if (model.UserRole == UserRole.SalesManager) 
                     {
                         await _userManager.AddToRoleAsync(model, RoleConstants.SalesManager);
+                    } else if (model.UserRole == UserRole.Admin)
+                    {
+                        await _userManager.AddToRoleAsync(model, RoleConstants.Admin);
                     }
 
                     await _context.SaveChangesAsync();
