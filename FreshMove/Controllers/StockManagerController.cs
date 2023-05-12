@@ -82,7 +82,7 @@ namespace FreshMove.Controllers
                 Id = category.Id,
                 Name = category.Name,
                 Description = category.Description,
-                categoryImage = category.categoryImage
+                ExistingImage = category.categoryImage
             };
             return View(newCategory);
 
@@ -93,20 +93,21 @@ namespace FreshMove.Controllers
         {
             if(ModelState.IsValid)
             {
+                string uniqueFileName = ProcessUploadedEditFile(model);
                 var category = _context.Categories.Where(c => c.Id == ID).FirstOrDefault();
-
+               
                  category.Name = model.Name;
                  category.Description = model.Description;
 
-                if (model.categoryImage != null)
+                if (model.ExistingImage != null)
                 {
                        if (category.categoryImage != null)
                        {
-                         string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Category", model.categoryImage);
+                         string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Category", model.ExistingImage);
                          System.IO.File.Delete(filePath);
 
                        }
-            
+               
                 }
 
               
@@ -120,6 +121,23 @@ namespace FreshMove.Controllers
 
 
         private string ProcessUploadedFile(CategoryViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.categoryImage != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Category");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.categoryImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.categoryImage.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
+        } 
+        private string ProcessUploadedEditFile(EditCategoryVM model)
         {
             string uniqueFileName = null;
 
