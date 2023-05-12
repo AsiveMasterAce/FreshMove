@@ -57,6 +57,12 @@ namespace FreshMove.Controllers
             return View(model);
 
         }
+        public IActionResult Customer()
+        {
+
+            return View();
+        }
+
        
 
 
