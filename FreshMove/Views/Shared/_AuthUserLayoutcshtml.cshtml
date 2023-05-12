@@ -19,9 +19,17 @@
 
                 @if (ViewContext.HttpContext.Request.Path == "/Register/Admin")
                 {
-                    <img src="~/img/auth1.jpg" alt="Sign Up" class="w-100" />
+                <img src="~/img/auth1.jpg" alt="Sign Up" class="w-100" />
                 }
-                else
+                else if (ViewContext.HttpContext.Request.Path == "/Register/Customer")
+                {
+                 <img src="~/img/auth3.jpg" alt="Sign Up" class="w-100" />
+                }
+                else if (ViewContext.HttpContext.Request.Path == "/Areas/Account/Logout")
+                {
+                 <img src="~/img/auth6.jpg" alt="Sign Up" class="w-100" />
+                }
+               else
                 {
                     <img src="~/img/auth2.jpg" alt="Auth Illustration" class="w-100" />
                 }

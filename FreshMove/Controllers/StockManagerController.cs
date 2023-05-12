@@ -101,19 +101,18 @@ namespace FreshMove.Controllers
 
                 if (model.ExistingImage != null)
                 {
-                       if (category.categoryImage != null)
-                       {
-                         string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Category", model.ExistingImage);
-                         System.IO.File.Delete(filePath);
+                    if (category.categoryImage != null)
+                    {
+                        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Category", model.ExistingImage);
+                        System.IO.File.Delete(filePath);
 
-                       }
-               
+                    }
                 }
-
-              
+                category.categoryImage = uniqueFileName;
 
                 _context.Categories.Update(category);
                 await _context.SaveChangesAsync();
+                return RedirectToAction("Categories");
             }
 
             return View(model);

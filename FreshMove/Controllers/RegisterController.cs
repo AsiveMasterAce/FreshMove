@@ -2,6 +2,7 @@
 using FreshMove.Data;
 using FreshMove.Models.users;
 using FreshMove.Models.ViewModels.Admin;
+using FreshMove.Models.ViewModels.Customer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -57,13 +58,71 @@ namespace FreshMove.Controllers
             return View(model);
 
         }
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Customer()
         {
 
             return View();
         }
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Customer(RegisterCustomerViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
+                    Race = model.Race,
+                    Gender = model.Gender,
+                    PhysicalAddress = model.PhysicalAddress,
+                    Password = model.Password,
+                    ConfirmPassword = model.ConfirmPassword,
+                    UserRole = UserRole.Customer,
+                };
 
-       
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, RoleConstants.Customer);
+
+                    var customer = new Customer
+                    {
+
+                        UserID = user.Id,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        PhysicalAddress = model.PhysicalAddress,
+                        Gender= model.Gender,
+                        Race=model.Race,
+                        CreatedOn= model.CreatedOn,
+                        Archived=false,
+                        Email=model.Email,
+                        Password=model.Password,
+
+
+                    };
+                    _context.Customers.Add(customer);
+                    await _context.SaveChangesAsync();
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation("User Created a new account with password");
+                    return RedirectToAction("Index", "Home");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+            }
+            return View(model);
+            
+        }
+
 
 
 
