@@ -89,7 +89,7 @@ namespace FreshMove.Controllers
             {
                 return NotFound();
             }
-
+   
             var _model = new EditUserViewModel
             {
                 Id = Id,
@@ -114,7 +114,7 @@ namespace FreshMove.Controllers
 
         public async Task<ActionResult> EditUser(EditUserViewModel model)
         {
-
+            model.UserName = model.Email;
             if (ModelState.IsValid)
             {
                 var user = _context.Users.Where(Users => Users.Id==model.Id).FirstOrDefault();
