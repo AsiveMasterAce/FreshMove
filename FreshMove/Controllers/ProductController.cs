@@ -35,8 +35,7 @@ namespace FreshMove.Controllers
         public IActionResult AddProduct()
         {
            
-            
-            ViewBag.Category = _context.Categories.ToList();
+            ViewBag.Categories= _context.Categories.OrderByDescending(c => c.Name).ToList();
             ViewBag.Supplier= _context.Suppliers.ToList();
 
             return View();
@@ -52,7 +51,6 @@ namespace FreshMove.Controllers
 
                 var product = new Product
                 { 
-
                     Name=model.Name,
                     Description=model.Description,
                     productCode=model.productCode,
@@ -71,6 +69,76 @@ namespace FreshMove.Controllers
 
 
         }
+
+        public IActionResult EditProduct([FromRoute] string ID)
+        {
+            var product = _context.Products.Where(p=>p.Id==ID).FirstOrDefault();
+            ViewBag.Categories = _context.Categories.OrderByDescending(c => c.Name).ToList();
+            ViewBag.Supplier = _context.Suppliers.ToList();
+
+            var editProduct = new EditProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                CategoryID = product.CategoryID,
+                Quantity = product.Quantity,
+                SupplierID = product.SupplierID,
+                ExistingImage=product.productImage,
+                productCode = product.productCode,
+                
+
+
+            };
+            return View(editProduct);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditProduct(EditProductViewModel model)
+        {
+           
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = ProcessUploadedEditFile(model);
+                var product = _context.Products.Where(p=>p.Id ==model.Id).FirstOrDefault();
+
+                if(product == null)
+                {
+
+                    return NotFound();
+                }
+
+                product.Name = model.Name;
+                product.Description = model.Description;
+                product.Price = model.Price;
+                product.CategoryID = model.CategoryID;
+                product.productCode = model.productCode;
+                product.SupplierID = model.SupplierID;
+                product.Quantity = model.Quantity;
+
+                if (model.ExistingImage != null)
+                {
+                    if (product.productImage != null)
+                    {
+                        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "product", model.ExistingImage);
+                        System.IO.File.Delete(filePath);
+
+                    }
+                }
+                product.productImage = uniqueFileName;
+
+
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Products");
+
+            }
+            return View(model);
+
+        }
+
         private string ProcessUploadedFile(AddProductViewModel model)
         {
             string uniqueFileName = null;
@@ -88,18 +156,18 @@ namespace FreshMove.Controllers
 
             return uniqueFileName;
         }
-        private string ProcessUploadedEditFile(EditCategoryVM model)
+        private string ProcessUploadedEditFile(EditProductViewModel model)
         {
             string uniqueFileName = null;
 
-            if (model.categoryImage != null)
+            if (model.productImage != null)
             {
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Product");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.categoryImage.FileName;
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.productImage.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    model.categoryImage.CopyTo(fileStream);
+                    model.productImage.CopyTo(fileStream);
                 }
             }
 

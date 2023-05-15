@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FreshMove.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,8 +16,7 @@ namespace FreshMove.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Archived = table.Column<bool>(type: "bit", nullable: false),
-                    categoryImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Archived = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

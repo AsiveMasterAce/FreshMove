@@ -43,20 +43,18 @@ namespace FreshMove.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddCategory(CategoryViewModel model)
+        public async Task<ActionResult> AddCategory(Category model)
         {
 
             if(ModelState.IsValid)
             {
-
-                string uniqueFileName = ProcessUploadedFile(model);
 
                 Category category = new Category
                 {
 
                     Name = model.Name,
                     Description = model.Description,
-                    categoryImage = uniqueFileName,
+          
 
                 };
 
@@ -82,7 +80,7 @@ namespace FreshMove.Controllers
                 Id = category.Id,
                 Name = category.Name,
                 Description = category.Description,
-                ExistingImage = category.categoryImage
+              
             };
             return View(newCategory);
 
@@ -93,22 +91,11 @@ namespace FreshMove.Controllers
         {
             if(ModelState.IsValid)
             {
-                string uniqueFileName = ProcessUploadedEditFile(model);
+              
                 var category = _context.Categories.Where(c => c.Id == ID).FirstOrDefault();
                
                  category.Name = model.Name;
                  category.Description = model.Description;
-
-                if (model.ExistingImage != null)
-                {
-                    if (category.categoryImage != null)
-                    {
-                        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Category", model.ExistingImage);
-                        System.IO.File.Delete(filePath);
-
-                    }
-                }
-                category.categoryImage = uniqueFileName;
 
                 _context.Categories.Update(category);
                 await _context.SaveChangesAsync();
@@ -119,39 +106,6 @@ namespace FreshMove.Controllers
         }
 
 
-        private string ProcessUploadedFile(CategoryViewModel model)
-        {
-            string uniqueFileName = null;
-
-            if (model.categoryImage != null)
-            {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Category");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.categoryImage.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.categoryImage.CopyTo(fileStream);
-                }
-            }
-
-            return uniqueFileName;
-        } 
-        private string ProcessUploadedEditFile(EditCategoryVM model)
-        {
-            string uniqueFileName = null;
-
-            if (model.categoryImage != null)
-            {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Category");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.categoryImage.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.categoryImage.CopyTo(fileStream);
-                }
-            }
-
-            return uniqueFileName;
-        }
+      
     }
 }

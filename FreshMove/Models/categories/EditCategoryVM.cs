@@ -16,10 +16,5 @@ namespace FreshMove.Models.categories
         [StringLength(100)]
         public string Description { get; set; }
 
-        public string ExistingImage { get; set; }
-        [NotMapped]
-        [Display(Name = "Category Image")]
-        public IFormFile categoryImage { get; set; }
-
     }
 }

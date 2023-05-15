@@ -23,8 +23,7 @@ namespace FreshMove.Models.categories
 
      
        
-        public string categoryImage { get; set; }
-
+ 
 
 
     }
