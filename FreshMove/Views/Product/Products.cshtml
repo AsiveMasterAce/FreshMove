@@ -1,0 +1,88 @@
+﻿@model List<FreshMove.Models.products.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container-fluid mt-4 mx-5">
+
+
+
+
+    <h2 class="mb-5" style="font-weight:600; color:var(--Green);">Products</h2>
+
+    <div class="d-flex pb-2 mb-4">
+
+        <div class="">
+            <h4 style="font-weight:600;">Add A New Product </h4>
+        </div>
+        <div class="ms-auto">
+            <a class="btn btn-primary" asp-action="AddProduct" asp-controller="Product"> Add Product</a>
+        </div>
+    </div>
+
+    <h4 class="mb-5">List of Products</h4>
+
+    @if (Model.Count() != 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Supplier Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Phyiscal Address
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <a asp-action="" asp-controller="" asp-route-id="@item.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |
+
+                            <a asp-action="" asp-controller="" asp-route-id="@item.Id">  <i class="bi bi-trash2" style="color:#ae2012"> </i> </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            The List of Products is Empty
+        </div>
+
+
+    }
+
+</div>
