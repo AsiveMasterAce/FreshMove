@@ -12,13 +12,16 @@ namespace FreshMove.Models.products
         [Display(Name = "Name")]
         public string Name { get; set; }
         [Required]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
         [Required]
         public int Quantity { get; set; }
         [Required]
+        [Display(Name = "Product Price")]
         public double Price { get; set; }
         [Required]
+        [Display(Name = "Product Image")]
         public IFormFile productImage { get; set; }
 
         [Display(Name = "Supplier")]

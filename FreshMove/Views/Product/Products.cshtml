@@ -30,15 +30,25 @@
                 <tr>
                     <th>
                         #
+                    </th> 
+                    <th>
+                        Product Image
+                    </th> 
+                        
+                    <th>
+                         Product Name
+                    </th> 
+                    <th>
+                         Category
                     </th>
                     <th>
-                        Supplier Name
+                        Description
                     </th>
                     <th>
-                        Email
+                        Quantity
                     </th>
                     <th>
-                        Phyiscal Address
+                        Price
                     </th>
                     <th>
 
@@ -55,15 +65,25 @@
                     <tr>
                         <td>
                             @i
+                        </td> 
+                        <td>
+                            <img src="~/product/@item.productImage" alt="@item.Name +@item.Description" height="120px" width="120px" />
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @item.Name
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Description)
+
+                            @item.Category.Name
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Price)
+                            @item.Description
+                        </td>    
+                        <td>
+                            @item.Quantity
+                        </td>
+                        <td>
+                            R @item.Price
                         </td>
                         <td>
                             <a asp-action="" asp-controller="" asp-route-id="@item.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |

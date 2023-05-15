@@ -1,10 +1,10 @@
-﻿
-using FreshMove.Data;
-using FreshMove.Migrations;
+﻿using FreshMove.Data;
+
 using FreshMove.Models.categories;
 using FreshMove.Models.products;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 
 namespace FreshMove.Controllers
@@ -28,7 +28,7 @@ namespace FreshMove.Controllers
 
         public IActionResult Products() 
         {
-            var products = _context.Products.ToList();
+            var products = _context.Products.Include(p=>p.Category).ToList();
             return View(products);
         }
         

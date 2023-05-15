@@ -79,6 +79,9 @@ namespace FreshMove.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("Archive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("CategoryID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
