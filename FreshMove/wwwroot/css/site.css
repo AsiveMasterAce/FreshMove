@@ -10,6 +10,7 @@
     --Green: #606c38;
     --redish: #e76f51;
     --grey2nd: #eff1ed14;
+    --darkGrey: #606c381a;
     --grey: #f5f3f4;
     --black: #242423;
     --nav-bg: #3a5a40;
@@ -63,6 +64,10 @@ body {
 .bg-green{
     background-color: var(--Green);
 }
+.bg-darkGrey{
+
+    background-color: var(--darkGrey);
+}
 .bg-redish{
     background-color: var(--redish);
 }
@@ -83,7 +88,16 @@ body {
 .btn-danger {
     background-color: var(--danger);
 }
+.card-img-top {
+    width: 100%;
+    height: 30vh;
+    object-fit: contain;
+}
+.product{
 
+    margin:60px;
+    padding:3px;
+}
 span {
     color: var(--redish);
     font-weight: 400;
