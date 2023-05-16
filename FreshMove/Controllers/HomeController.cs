@@ -1,4 +1,5 @@
-﻿using FreshMove.Models;
+﻿using FreshMove.Constants;
+using FreshMove.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,6 +16,24 @@ namespace FreshMove.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole(RoleConstants.Admin))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else if(User.IsInRole(RoleConstants.SalesManager))
+                {
+                    return RedirectToAction("Index", "SalesManager");
+
+                }
+                else if(User.IsInRole(RoleConstants.StockManager))
+                {
+                    return RedirectToAction("Index", "StockManager");
+
+                }
+
+            }
             return View();
         }
 

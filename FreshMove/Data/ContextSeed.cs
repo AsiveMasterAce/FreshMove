@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SalesOrders.Models.users;
+using FreshMove.Models.users;
 using FreshMove.Constants;
 namespace FreshMove.Data
 {
@@ -8,6 +8,12 @@ namespace FreshMove.Data
         public static async Task SeedRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             await roleManager.CreateAsync(new IdentityRole(RoleConstants.Admin));
+            await roleManager.CreateAsync(new IdentityRole(RoleConstants.StockManager));
+            await roleManager.CreateAsync(new IdentityRole(RoleConstants.SalesManager));
+            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Customer));
+           
+         
+      
 
         }
     }

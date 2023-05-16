@@ -1,0 +1,73 @@
+﻿@model List<FreshMove.Models.users.ApplicationUser>;
+@{
+    ViewData["Title"] = "List Of Users";
+
+}
+
+<div class="container-fluid mt-4 mx-5">
+
+
+   
+
+        <h2 class="mb-5" style="font-weight:600; color:var(--Green);">Users</h2>
+
+        <div class="d-flex pb-2 mb-4">
+
+            <div class="">
+                <h4 style="font-weight:600;">Add A New User </h4>
+            </div>
+            <div class="ms-auto">
+                <a class="btn btn-primary" asp-action="NewUser" asp-controller="Admin"> Add User</a>
+            </div>
+        </div>
+
+
+
+        <h4 class="mb-5">List of users</h4>
+
+        @{
+        int i = 0;
+        }
+        <table class="table">
+        <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Race</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach(var user in Model)
+                {
+                    i++;
+                <tr>
+                        <th>@i </th>
+                        <td class="text-capitalize">@user.FirstName</td>
+                        <td class="text-capitalize" >@user.LastName</td>
+                        <td>@user.Email</td>
+                        <td>@user.UserRole</td>
+                        <td class="text-capitalize">@user.Gender</td>
+                        <td>@user.Race</td>
+                        <td>
+                        <a asp-action="EditUser" asp-controller="Admin" asp-route-id="@user.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |
+
+                        <a asp-action="" asp-controller="Admin" asp-route-id="@user.Id"> <i class="bi bi-list-nested " style="color:#023047"></i></a> |
+
+                        <a asp-action="" asp-controller="Admin" asp-route-id="@user.Id">  <i class="bi bi-trash2" style="color:#ae2012"> </i> </a>
+
+
+                        </td>
+                    </tr>
+                }
+               
+               
+            </tbody>
+        </table>
+   
+</div>
