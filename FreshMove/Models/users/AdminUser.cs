@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using FreshMove.Constants;
 
 namespace FreshMove.Models.users
 {
-    public class AdminUser
+    public class AdminUser 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Id { get; set; } = $"{Guid.NewGuid()}{Guid.NewGuid()}";
@@ -19,12 +20,16 @@ namespace FreshMove.Models.users
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        public string PhysicalAddress { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
-        public bool Active { get; set; }
+        public bool Archived { get; set; }
+        public Gender Gender { get; set; }
+
+        public Race Race { get; set; }
     }
 }

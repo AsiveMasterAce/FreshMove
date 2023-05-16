@@ -1,0 +1,31 @@
+﻿@model FreshMove.Models.categories.Category
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+
+<div class="container mt-5">
+    <form asp-action="AddCategory" enctype="multipart/form-data">
+            <h1 class=""> Add Category</h1>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-4">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4" > </textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group ">
+                <input type="submit" value="Create" class="btn btn-primary" />
+              <a class="btn btn-danger" asp-action="Categories" asp-controller="StockManager">Back</a>
+
+            </div>
+        </form>
+    
+</div>
+
+
