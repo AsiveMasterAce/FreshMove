@@ -9,6 +9,7 @@
     --danger: #ae2012;
     --Green: #606c38;
     --redish: #e76f51;
+    --grey2nd: #eff1ed14;
     --grey: #f5f3f4;
     --black: #242423;
     --nav-bg: #3a5a40;
@@ -66,7 +67,7 @@ body {
     background-color: var(--redish);
 }
 .bg-grey{
-    background-color: var(--redish);
+    background-color: var(--grey2nd);
 }
 
 .btn-primary:hover {
