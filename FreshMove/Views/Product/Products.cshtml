@@ -1,5 +1,8 @@
 ﻿@model List<FreshMove.Models.products.Product>
-
+@using FreshMove.Models.users;
+@using Microsoft.AspNetCore.Identity
+@using FreshMove.Constants;
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Products";
 }
@@ -12,13 +15,21 @@
     <h2 class="mb-5" style="font-weight:600; color:var(--Green);">Products</h2>
 
     <div class="d-flex pb-2 mb-4">
+         @if (User.IsInRole(RoleConstants.StockManager))
+        {
+            <div class="">
+                <h4 style="font-weight:600;">Add A New Product </h4>
+            </div>
+            <div class="ms-auto">
+                <a class="btn btn-primary" asp-action="AddProduct" asp-controller="Product"> Add Product</a>
+            </div>
+        }
+        else
+        {
+            
+            
+        }
 
-        <div class="">
-            <h4 style="font-weight:600;">Add A New Product </h4>
-        </div>
-        <div class="ms-auto">
-            <a class="btn btn-primary" asp-action="AddProduct" asp-controller="Product"> Add Product</a>
-        </div>
     </div>
 
     <h4 class="mb-5">List of Products</h4>
@@ -30,15 +41,25 @@
                 <tr>
                     <th>
                         #
+                    </th> 
+                    <th>
+                        Product Image
+                    </th> 
+                        
+                    <th>
+                         Product Name
+                    </th> 
+                    <th>
+                         Category
                     </th>
                     <th>
-                        Supplier Name
+                        Description
                     </th>
                     <th>
-                        Email
+                        Quantity
                     </th>
                     <th>
-                        Phyiscal Address
+                        Price
                     </th>
                     <th>
 
@@ -55,21 +76,42 @@
                     <tr>
                         <td>
                             @i
+                        </td> 
+                        <td>
+                            <img src="~/product/@item.productImage" alt="@item.Name +@item.Description" height="120px" width="120px" />
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @item.Name
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Description)
+
+                            @item.Category.Name
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Price)
+                            @item.Description
+                        </td>    
+                        <td>
+                            @item.Quantity
                         </td>
                         <td>
-                            <a asp-action="" asp-controller="" asp-route-id="@item.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |
+                            R @item.Price
+                        </td>
+
+                        @if (User.IsInRole(RoleConstants.StockManager))
+                        {
+
+                          <td>
+                            <a asp-action="EditProduct" asp-controller="Product" asp-route-id="@item.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |
 
                             <a asp-action="" asp-controller="" asp-route-id="@item.Id">  <i class="bi bi-trash2" style="color:#ae2012"> </i> </a>
-                        </td>
+                         </td>
+                        }
+                        else{
+                            <td>
+
+
+                            </td>
+                        }
                     </tr>
                 }
 

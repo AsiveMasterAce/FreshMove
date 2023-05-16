@@ -65,10 +65,6 @@ namespace FreshMove.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("categoryImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -78,6 +74,9 @@ namespace FreshMove.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Archive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("CategoryID")
                         .IsRequired()

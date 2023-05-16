@@ -7,6 +7,7 @@ namespace FreshMove.Models.products
 {
     public class Product
     {
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Id { get; set; } = $"{Guid.NewGuid()}{Guid.NewGuid()}";
 
