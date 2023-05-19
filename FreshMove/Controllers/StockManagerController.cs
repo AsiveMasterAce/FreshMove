@@ -28,7 +28,7 @@ namespace FreshMove.Controllers
 
         public IActionResult Categories()
         {
-            var categories = _context.Categories.OrderByDescending(c => c.Name).ToList();
+            var categories = _context.Categories.OrderBy(c => c.Name).ToList();
 
             return View(categories);
 
