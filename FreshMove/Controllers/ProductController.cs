@@ -28,7 +28,7 @@ namespace FreshMove.Controllers
 
         public IActionResult Products() 
         {
-            var products = _context.Products.Include(p=>p.Category).ToList();
+            var products = _context.Products.OrderBy(p=>p.Name).Include(p=>p.Category).ToList();
             return View(products);
         }
         

@@ -41,7 +41,7 @@ namespace FreshMove.Controllers
 
         public IActionResult NewUser()
         {
-            ViewBag.Users = _context.Users.ToList();
+            ViewBag.Users = _context.Users.OrderBy(u=>u.FirstName).ToList();
             return View();
         }
 
