@@ -1,5 +1,6 @@
 ﻿using FreshMove.Constants;
 using FreshMove.Data;
+using FreshMove.Helpers;
 using FreshMove.Models.users;
 using FreshMove.Models.ViewModels;
 using FreshMove.Models.ViewModels.Admin;
@@ -34,9 +35,34 @@ namespace FreshMove.Controllers
             return View();
         }
 
-        public IActionResult Users()
+        public async Task<IActionResult>Users(string sortOrder,string currentFilter,string searchString,int? pageNumber)
         {
-            return View(_context.Users.ToList());
+            ViewData["CurrentSort"] = sortOrder;
+
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "Name";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var users = from u in _context.Users 
+                        where u.Archived==false
+                        select u;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.LastName.Contains(searchString)||u.FirstName.Contains(searchString));
+            }
+            
+            int pageSize = 8;
+            return View( await PaginatedList<ApplicationUser>.CreateAsync(users.AsNoTracking(), pageNumber ?? 1, pageSize));
         }   
 
         public IActionResult NewUser()
