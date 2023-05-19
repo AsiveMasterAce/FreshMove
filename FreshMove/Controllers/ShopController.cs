@@ -20,6 +20,8 @@ namespace FreshMove.Controllers
             return View();
         }
 
+        [HttpGet]
+     
         public IActionResult Shop()
         {
 
