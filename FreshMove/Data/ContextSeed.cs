@@ -11,9 +11,9 @@ namespace FreshMove.Data
             await roleManager.CreateAsync(new IdentityRole(RoleConstants.StockManager));
             await roleManager.CreateAsync(new IdentityRole(RoleConstants.SalesManager));
             await roleManager.CreateAsync(new IdentityRole(RoleConstants.Customer));
+            await roleManager.CreateAsync(new IdentityRole(RoleConstants.StockTaker));
            
-         
-      
+        
 
         }
     }

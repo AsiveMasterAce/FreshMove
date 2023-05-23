@@ -30,11 +30,20 @@ namespace FreshMove.Constants
         [Display(Name = "Admin")]
         Admin,
         [Display(Name = "Stock Manager")]
-        StockManager,
+        StockManager,   
+        [Display(Name = "Stock Taker")]
+        StockTaker,
         [Display(Name = "Sales Manager")]
         SalesManager,
         [Display(Name="Customer")]
         Customer
      
+  }
+  public enum PurchaseOrderStatus
+  {
+         New,
+         Processed,
+         Delivered,
+         Recieved
   }
 }
