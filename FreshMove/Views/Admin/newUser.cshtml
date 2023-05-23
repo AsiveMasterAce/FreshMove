@@ -13,17 +13,19 @@
         <form asp-action="CreateNewUser">
             <h1> Add A New User</h1>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+         <div class="row mb-4"> 
+            <div class="col-6 form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="col-6 form-group">
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+         </div>
+            <div class="form-group mb-4">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
@@ -62,7 +64,7 @@
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
             <div class="form-group py-4">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Add User" class="btn btn-primary" />
              <a class="btn btn-danger" asp-action="Users" asp-controller="Admin">Back</a>
             </div>
         </form>
