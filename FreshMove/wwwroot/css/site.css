@@ -79,7 +79,23 @@ body {
         background-color: var(--secondary);
         border: none;
 }
-
+.outline-primary:active {
+    color: #fff;
+    background-color: #198754;
+    border-color: #000;
+}
+.btn-outline-primary {
+    color: #198754;
+ 
+}
+.btn-outline-primary:hover {
+        color: #fff;
+        background-color: #198754;
+        border-color: #000;
+}
+.btn-outline-primary:focus {
+        box-shadow: 0 0 0 0.25rem #198754db;
+}
 .btn-primary:focus {
         background-color: var(--primary);
         border: none;
@@ -138,6 +154,11 @@ html {
     border-color: #588157;
     outline: 0;
     box-shadow: 0 0 0 0.25rem #588157b0;
+}
+
+.col-3 {
+    flex: 0 0 auto;
+    width: 24%;
 }
 /*Navigation for users*/
 .navside {
