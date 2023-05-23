@@ -24,7 +24,7 @@ namespace FreshMove.Controllers
         }
         public IActionResult Suppliers()
         {
-            var supplier=_context.Suppliers.ToList();
+            var supplier=_context.Suppliers.OrderBy(s=>s.Name).ToList();
             return View(supplier);
         }
 

@@ -1,4 +1,5 @@
-﻿@model List<FreshMove.Models.users.ApplicationUser>;
+﻿@using FreshMove.Helpers;
+@model PaginatedList<FreshMove.Models.users.ApplicationUser>;
 @{
     ViewData["Title"] = "List Of Users";
 
@@ -22,9 +23,16 @@
         </div>
 
 
-
         <h4 class="mb-5">List of users</h4>
 
+   <form asp-action="Users" asp-controller="Admin" method="get">
+     <div class="col-4 mb-3">
+        <div class="input-group mt-5">
+            <input type="search" class="form-control rounded" name="searchString" placeholder="search user" aria-label="Search" value="@ViewData["CurrentFilter"]" aria-describedby="search-addon" />
+            <input type="submit" class="btn btn-outline-primary" value="search"/>
+        </div>
+     </div>
+    </form>
         @{
         int i = 0;
         }
@@ -69,5 +77,23 @@
                
             </tbody>
         </table>
-   
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="Users"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Users"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
 </div>

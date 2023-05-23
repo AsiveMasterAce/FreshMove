@@ -14,6 +14,7 @@ namespace FreshMove.Controllers
             _logger = logger;
         }
 
+   
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)

@@ -28,13 +28,12 @@ namespace FreshMove.Controllers
 
         public IActionResult Products() 
         {
-            var products = _context.Products.Include(p=>p.Category).ToList();
+            var products = _context.Products.OrderBy(p=>p.Name).Include(p=>p.Category).ToList();
             return View(products);
         }
         
         public IActionResult AddProduct()
         {
-           
             ViewBag.Categories= _context.Categories.OrderByDescending(c => c.Name).ToList();
             ViewBag.Supplier= _context.Suppliers.ToList();
 
