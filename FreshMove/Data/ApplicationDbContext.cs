@@ -2,6 +2,7 @@
 using FreshMove.Models.categories;
 using FreshMove.Models.products;
 using FreshMove.Models.users;
+using FreshMove.Models.Cart;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -30,5 +31,8 @@ namespace FreshMove.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }    }
+        public DbSet<Product> Products { get; set; }   
+        public DbSet<Cart> UserCarts { get; set; }
+    
+    }
 }
