@@ -22,13 +22,16 @@ namespace FreshMove.Controllers
         {
             return View();
         }
+     
+        [HttpGet]
+
         public IActionResult Suppliers()
         {
             var supplier=_context.Suppliers.OrderBy(s=>s.Name).ToList();
             return View(supplier);
         }
 
-
+ 
         public IActionResult AddSupplier()
         {
             return View();
@@ -49,6 +52,7 @@ namespace FreshMove.Controllers
             return View(model);
 
         }
+  
         public IActionResult EditSupplier([FromRoute] string Id)
         {
             var supplier= _context.Suppliers.Where(s=>s.Id==Id && s.Archived==false).FirstOrDefault();

@@ -33,6 +33,10 @@ namespace FreshMove.Controllers
                     return RedirectToAction("Index", "StockManager");
 
                 }
+                else if (User.IsInRole(RoleConstants.StockTaker))
+                {
+                    return RedirectToAction("Index", "StockTaker");
+                }
 
             }
             return View();

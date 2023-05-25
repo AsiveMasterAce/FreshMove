@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 namespace FreshMove.Controllers
 {
     [Authorize(Roles = RoleConstants.Admin)]
-    
+    [Route("Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -22,6 +22,7 @@ namespace FreshMove.Controllers
         private readonly ApplicationDbContext _context;
         private readonly ILogger<RegisterController> _logger;
 
+     
         public AdminController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context, ILogger<RegisterController> logger)
         {
             _userManager = userManager;
@@ -30,6 +31,8 @@ namespace FreshMove.Controllers
             _logger = logger;
         }
 
+
+        [Route("Admin/Index")]
         public IActionResult Index()
         {
             return View();
@@ -89,9 +92,14 @@ namespace FreshMove.Controllers
                     else if (model.UserRole == UserRole.SalesManager) 
                     {
                         await _userManager.AddToRoleAsync(model, RoleConstants.SalesManager);
-                    } else if (model.UserRole == UserRole.Admin)
+                    } 
+                    else if (model.UserRole == UserRole.Admin)
                     {
                         await _userManager.AddToRoleAsync(model, RoleConstants.Admin);
+                    }
+                    else if(model.UserRole == UserRole.StockTaker)
+                    {
+                        await _userManager.AddToRoleAsync(model, RoleConstants.StockTaker);
                     }
 
                     await _context.SaveChangesAsync();

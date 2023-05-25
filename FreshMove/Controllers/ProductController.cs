@@ -34,8 +34,8 @@ namespace FreshMove.Controllers
         
         public IActionResult AddProduct()
         {
-            ViewBag.Categories= _context.Categories.OrderByDescending(c => c.Name).ToList();
-            ViewBag.Supplier= _context.Suppliers.ToList();
+            ViewBag.Categories= _context.Categories.OrderBy(c => c.Name).ToList();
+            ViewBag.Supplier= _context.Suppliers.OrderBy(s=>s.Name).ToList();
 
             return View();
         }
