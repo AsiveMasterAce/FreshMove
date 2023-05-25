@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 namespace FreshMove.Controllers
 {
     [Authorize(Roles = RoleConstants.Admin)]
-    [Route("Admin")]
+   
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -32,7 +32,7 @@ namespace FreshMove.Controllers
         }
 
 
-        [Route("Admin/Index")]
+
         public IActionResult Index()
         {
             return View();

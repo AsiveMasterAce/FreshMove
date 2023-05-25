@@ -1,5 +1,7 @@
 ﻿
 using FreshMove.Data;
+using FreshMove.Models.categories;
+using FreshMove.Models.products;
 using FreshMove.Models.ViewModels.Shop;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,14 +26,16 @@ namespace FreshMove.Controllers
      
         public IActionResult Shop()
         {
-
             var products = _context.Products.Where(p => p.Archive == false).ToList();
 
+       
             var viewModel = new ShopViewModel
             {
                 products = products
             };
             return View(viewModel);
         }
+       
+
     }
 }
