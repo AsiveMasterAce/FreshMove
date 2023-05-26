@@ -189,6 +189,11 @@
                     {
                         <a asp-page="Shop" asp-route-category="category" asp-route-searchString="searchString" asp-route-pageIndex="@(ViewBag.Products.PageIndex + 1)" asp-route-pageSize="@ViewBag.Products.PageSize">Next</a>
                     }
+
+                    <div class="mt-2">
+
+                       Page @(ViewBag.Products.PageIndex) of @ViewBag.Products.TotalPages
+                    </div>
                 </div>
 
 
