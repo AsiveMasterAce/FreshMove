@@ -105,6 +105,22 @@ namespace FreshMove.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DeleteCategory([FromRoute]string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var category = _context.Categories.Where(c => c.Id == Id && c.Archived == false).FirstOrDefault();
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
+        }
+
 
       
     }

@@ -4,6 +4,7 @@ using FreshMove.Models.categories;
 using FreshMove.Models.products;
 using FreshMove.Models.ViewModels.Shop;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FreshMove.Controllers
 {
@@ -23,8 +24,7 @@ namespace FreshMove.Controllers
         }
 
         [HttpGet]
-     
-        public async Task<IActionResult> Shop(string category, string searchString)
+        public async Task<IActionResult> Shop([FromRoute] string category, string searchString)
         {
 
             var products = _context.Products.Where(p => p.Archive == false);
@@ -55,7 +55,7 @@ namespace FreshMove.Controllers
 
             
 
-            ViewBag.Products = products.ToList();
+            ViewBag.Products = await products.ToListAsync();
             return View();
         }
        

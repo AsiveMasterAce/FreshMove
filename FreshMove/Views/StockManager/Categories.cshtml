@@ -65,7 +65,11 @@
                         <td>
                             <a asp-action="EditCategory" asp-controller="StockManager" asp-route-id="@item.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |
 
-                            <a asp-action="" asp-controller="Admin" asp-route-id="@item.Id">  <i class="bi bi-trash2" style="color:#ae2012"> </i> </a>
+                            <a asp-route-id="@item.Id" data-toggle="modal" data-target="#confirmDelete" id="deleteBtn">  
+
+                                <i class="bi bi-trash2" style="color:#ae2012"> </i> 
+                            </a>
+                        
                         </td>
                     </tr>
                 }
@@ -83,3 +87,16 @@
     }
 
 </div>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#deleteBtn").click(function () {
+            $("#confirmDelete").modal("show");
+        });
+    });
+
+</script>

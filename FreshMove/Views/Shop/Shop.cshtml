@@ -1,5 +1,6 @@
 ﻿@using FreshMove.Models.products;
-@model FreshMove.Models.ViewModels.Shop.ShopViewModel
+@*@model FreshMove.Models.ViewModels.Shop.ShopViewModel*@
+@model List<FreshMove.Models.products.Product>
 
 @{
     ViewData["Title"] = "Shop";
@@ -94,7 +95,7 @@
         <h3 class="text-center fw-bold">Products</h3>
 
         <div class="container mt-4">
-            <form asp-action="Shop">
+        <form asp-action="Shop" asp-controller="Shop" method="get">
                <div class="col-4">
 
                  <div class="input-group mt-5">
