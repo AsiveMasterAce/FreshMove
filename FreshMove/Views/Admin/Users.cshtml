@@ -40,11 +40,61 @@
         <thead class="thead-light">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Gender</th>
+                <th scope="col"> 
+
+                    First Name
+                    <a class="text-black text-decoration-none ms-auto" asp-controller="Admin" asp-action="Users" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> 
+                        
+                        <i class="bi bi-sort-alpha-down"></i>
+                        
+                        <i class="bi bi-sort-alpha-up"></i>
+                        
+                    </a>
+                    
+                </th>
+                <th scope="col">
+
+                    Last Name
+                    <a class="text-black text-decoration-none" asp-controller="Admin" asp-action="Users" asp-route-sortOrder="@ViewData["LNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                        
+                       <i class="bi bi-sort-alpha-down"></i> 
+                    </a>
+                    <a class="text-black text-decoration-none" asp-controller="Admin" asp-action="Users" asp-route-sortOrder="@ViewData["LNameDescSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+
+                        <i class="bi bi-sort-alpha-up"></i>
+                    </a>
+                </th>
+                    <th scope="col">
+                        
+                        Email
+                    <a class="text-black text-decoration-none" asp-controller="Admin" asp-action="Users" asp-route-sortOrder="@ViewData["EmailSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+
+                        <i class="bi bi-sort-alpha-down"></i>
+
+                        <i class="bi bi-sort-alpha-up"></i>
+                    </a>
+                    </th>
+                    <th scope="col">
+                        Role
+                    <a class="text-black text-decoration-none" asp-controller="Admin" asp-action="Users" asp-route-sortOrder="@ViewData["RoleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> 
+                        
+                        <i class="bi bi-sort-alpha-down"></i> 
+                        
+                        <i class="bi bi-sort-alpha-up"></i>
+                    </a>
+                    </th>
+                    <th scope="col">
+                        
+                      Gender
+                      <a class="text-black text-decoration-none" asp-controller="Admin" asp-action="Users" asp-route-sortOrder="@ViewData["GenderSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                        <i class="bi bi-sort-alpha-down"></i>
+                       
+                    </a> 
+                    <a class="text-black text-decoration-none" asp-controller="Admin" asp-action="Users" asp-route-sortOrder="@ViewData["GenderDescSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                        <i class="bi bi-sort-alpha-up"></i>
+                       
+                    </a>
+                     </th>
                     <th scope="col">Race</th>
                     <th scope="col"></th>
                 </tr>

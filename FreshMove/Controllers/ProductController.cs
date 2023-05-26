@@ -1,7 +1,8 @@
 ﻿using FreshMove.Data;
-
+using FreshMove.Helpers;
 using FreshMove.Models.categories;
 using FreshMove.Models.products;
+using FreshMove.Models.users;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,10 +27,32 @@ namespace FreshMove.Controllers
             return View();
         }
 
-        public IActionResult Products() 
+        public async Task<IActionResult> Products(string sortOrder, string currentFilter, string searchString, int? pageNumber) 
         {
-            var products = _context.Products.OrderBy(p=>p.Name).Include(p=>p.Category).ToList();
-            return View(products);
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var products = from p in _context.Products.OrderBy(p=>p.Name).Include(p=>p.Category)
+                           where p.Archive == false
+                           select p;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p=>p.Name.Contains(searchString) || p.Description.Contains(searchString));
+            }
+
+            int pageSize = 4;
+            return View(await PaginatedList<Product>.CreateAsync(products.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         
         public IActionResult AddProduct()

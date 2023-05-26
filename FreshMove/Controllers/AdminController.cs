@@ -38,11 +38,18 @@ namespace FreshMove.Controllers
             return View();
         }
 
-        public async Task<IActionResult>Users(string sortOrder,string currentFilter,string searchString,int? pageNumber)
+        public async Task<IActionResult>Users(string sortOrder,string currentFilter,string searchString,int? pageNumber, Gender gender,UserRole userRole)
         {
             ViewData["CurrentSort"] = sortOrder;
 
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "Name";
+            ViewData["LNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_descLast" : "LastName";
+            ViewData["LNameDescParm"] = String.IsNullOrEmpty(sortOrder) ? "LastName" : "LastName";
+            ViewData["RoleSortParm"] =  String.IsNullOrEmpty(sortOrder)? "userRole" : "Role";
+            ViewData["GenderSortParm"] =  String.IsNullOrEmpty(sortOrder)? "Gender" : "Gender_desc";
+            ViewData["GenderDescSortParm"] =  String.IsNullOrEmpty(sortOrder)? "Gender" : "Gender_desc";
+            ViewData["EmailSortParm"] =  String.IsNullOrEmpty(sortOrder)? "Email" : "";
+
 
             if (searchString != null)
             {
@@ -61,9 +68,40 @@ namespace FreshMove.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                users = users.Where(u => u.LastName.Contains(searchString)||u.FirstName.Contains(searchString));
+                users = users.Where(u => u.LastName.Contains(searchString) || u.FirstName.Contains(searchString));
             }
-            
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(_u => _u.FirstName);
+                    break;
+                case "name_descLast":
+                    users= users.OrderByDescending(_u => _u.LastName);
+                    break;
+                case "LastName":
+                     users= users.OrderBy(_u => _u.LastName);
+                    break;
+                case "userRole":
+                    users = users.OrderByDescending(_u => ((int)_u.UserRole));
+                    break; 
+                case "Role":
+                    users = users.OrderBy(_u => ((int)_u.UserRole));
+                    break;
+                case "Gender":
+                    users = users.OrderBy(_u => ((int)_u.Gender));
+                    break;  
+                case "Gender_desc":
+                    users = users.OrderByDescending(_u => ((int)_u.Gender));
+                    break;
+                case "Email":
+                    users = users.OrderBy(_u =>_u.Email);
+                    break;
+                default:
+                      users = users.OrderBy(_u => _u.FirstName);
+                    break;
+               
+            }
+
             int pageSize = 8;
             return View( await PaginatedList<ApplicationUser>.CreateAsync(users.AsNoTracking(), pageNumber ?? 1, pageSize));
         }   

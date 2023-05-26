@@ -1,4 +1,5 @@
-﻿@model List<FreshMove.Models.products.Product>
+﻿@model PaginatedList<FreshMove.Models.products.Product>
+@using FreshMove.Helpers;
 @using FreshMove.Models.users;
 @using Microsoft.AspNetCore.Identity
 @using FreshMove.Constants;
@@ -34,9 +35,19 @@
 
     <h4 class="mb-5">List of Products</h4>
 
+
+    <form asp-action="Products" asp-controller="Product" method="get">
+        <div class="col-4 mb-3">
+            <div class="input-group mt-5">
+                <input type="search" class="form-control rounded" name="searchString" placeholder="search product" aria-label="Search" value="@ViewData["CurrentFilter"]" aria-describedby="search-addon" />
+                <input type="submit" class="btn btn-outline-primary" value="search" />
+            </div>
+        </div>
+    </form>
+
     @if (Model.Count() != 0)
     {
-        <table class="table">
+        <table class="table mt-4">
             <thead>
                 <tr>
                     <th>
@@ -69,6 +80,8 @@
             <tbody>
                 @{
                     int i = 0;
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
                 }
                 @foreach (var item in Model)
                 {
@@ -87,7 +100,7 @@
 
                             @item.Category.Name
                         </td>
-                        <td class="text-wrap" style="width: 50%">
+                        <td class="text-wrap" style="width: 30%">
                             @item.Description
                         </td>    
                         <td>
@@ -117,6 +130,22 @@
 
             </tbody>
         </table>
+   
+
+    <a asp-action="Products"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Products"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
     }
     else
     {

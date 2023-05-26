@@ -24,16 +24,39 @@ namespace FreshMove.Controllers
 
         [HttpGet]
      
-        public IActionResult Shop()
+        public async Task<IActionResult> Shop(string category, string searchString)
         {
-            var products = _context.Products.Where(p => p.Archive == false).ToList();
 
-       
-            var viewModel = new ShopViewModel
+            var products = _context.Products.Where(p => p.Archive == false);
+
+            switch (category)
             {
-                products = products
-            };
-            return View(viewModel);
+                case "vegetable":
+                    products = products.Where(p => p.Category.Name == category);
+                    break;
+                case "fruit":
+                    products = products.Where(p => p.Category.Name == category);
+                    break;
+                case "frozenGoods":
+                    products = products.Where(p => p.Category.Name == category);
+                    break;
+                case "meat":
+                    products = products.Where(p => p.Category.Name == category);
+                    break;
+                case "all":
+                    products = products;
+                    break;
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.Name.Contains(searchString));
+            }
+
+            
+
+            ViewBag.Products = products.ToList();
+            return View();
         }
        
 

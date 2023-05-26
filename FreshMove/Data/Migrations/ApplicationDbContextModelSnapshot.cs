@@ -44,7 +44,7 @@ namespace FreshMove.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Suppliers", (string)null);
                 });
 
             modelBuilder.Entity("FreshMove.Models.Cart.Cart", b =>
@@ -69,7 +69,7 @@ namespace FreshMove.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("UserCarts");
+                    b.ToTable("UserCarts", (string)null);
                 });
 
             modelBuilder.Entity("FreshMove.Models.categories.Category", b =>
@@ -92,7 +92,7 @@ namespace FreshMove.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("FreshMove.Models.products.Product", b =>
@@ -139,7 +139,7 @@ namespace FreshMove.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("FreshMove.Models.users.ApplicationUser", b =>
@@ -287,7 +287,7 @@ namespace FreshMove.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

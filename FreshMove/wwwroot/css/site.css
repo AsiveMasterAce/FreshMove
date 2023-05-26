@@ -9,7 +9,7 @@
     --danger: #ae2012;
     --Green: #606c38;
     --redish: #e76f51;
-    --grey2nd: #eff1ed14;
+    --grey2nd: #eff1eda3;
     --darkGrey: #606c381a;
     --grey: #f5f3f4;
     --black: #242423;
@@ -193,7 +193,26 @@ html {
     scrollbar-width: none
 }
 
+.tooltip {
+ 
+}
 
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
 /*Media Queries*/
 
 @media (min-width:576px) {
@@ -272,4 +291,15 @@ html {
     html {
         font-size: 16px;
     }
+}
+
+.parent-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.button-container {
+    justify-content: flex-end;
+    display: flex;
 }

@@ -27,7 +27,7 @@ namespace FreshMove.Controllers
 
         public IActionResult Cart()
         {
-            var cart = _context.UserCarts.Where(c => c.CustomerID == _userManager.GetUserId(User)).Include(c=>c.ProductID).ToList();
+            var cart = _context.UserCarts.Where(c => c.CustomerID == _userManager.GetUserId(User)).ToList();
 
             return View(cart);
         }
