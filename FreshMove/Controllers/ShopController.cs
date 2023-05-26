@@ -1,5 +1,6 @@
 ﻿
 using FreshMove.Data;
+using FreshMove.Helpers;
 using FreshMove.Models.categories;
 using FreshMove.Models.products;
 using FreshMove.Models.ViewModels.Shop;
@@ -24,7 +25,7 @@ namespace FreshMove.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Shop([FromRoute] string category, string searchString)
+        public async Task<IActionResult> Shop(string category, string searchString,int pageIndex = 1, int pageSize = 8)
         {
 
             var products = _context.Products.Where(p => p.Archive == false);
@@ -37,10 +38,13 @@ namespace FreshMove.Controllers
                 case "fruit":
                     products = products.Where(p => p.Category.Name == category);
                     break;
-                case "frozenGoods":
+                case "frozen goods":
                     products = products.Where(p => p.Category.Name == category);
                     break;
                 case "meat":
+                    products = products.Where(p => p.Category.Name == category);
+                    break;
+                case "bakery":
                     products = products.Where(p => p.Category.Name == category);
                     break;
                 case "all":
@@ -53,9 +57,9 @@ namespace FreshMove.Controllers
                 products = products.Where(p => p.Name.Contains(searchString));
             }
 
-            
 
-            ViewBag.Products = await products.ToListAsync();
+            var paginatedProducts = await PaginatedList<Product>.CreateAsync(products, pageIndex, pageSize);
+            ViewBag.Products = paginatedProducts;
             return View();
         }
        

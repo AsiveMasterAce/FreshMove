@@ -88,7 +88,7 @@
 
 
 
-<div class="container mt-5">
+<div class="container mt-5" id="product">
 
    
 
@@ -103,7 +103,7 @@
                     <input type="submit" class="btn btn-outline-primary" value="search" />
                  </div>
               </div>
-           </form>
+          
 
             <div class="col-2 mt-3 mb-2">
             </div>
@@ -111,27 +111,31 @@
 
                 <div class="bg-black rounded p-2 m-2">
 
-                <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="all">All</a>
+                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="all" asp-fragment="product">All</a>
                 </div>
                 <div class="bg-black rounded p-2 m-2">
 
-                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="vegetable">Vegetables</a>
+                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="vegetable" asp-fragment="product">Vegetables</a>
                 </div>
                 <div class="rounded p-2 m-2 bg-black">
 
-                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="fruit">Fruit</a>
+                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="fruit" asp-fragment="product">Fruit</a>
                 </div>
                 <div class="rounded p-2 m-2 bg-black">
 
-                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="meat">Meat</a>
+                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="meat" asp-fragment="product">Meat</a>
                 </div>  
                 <div class="rounded p-2 m-2 bg-black">
 
-                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="frozenGoods">Frozen Goods</a>
+                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="frozen goods" asp-fragment="product">Frozen Goods</a>
+                </div>     
+                <div class="rounded p-2 m-2 bg-black">
+
+                    <a class="text-white text-decoration-none" asp-action="Shop" asp-controller="Shop" asp-route-category="bakery" asp-fragment="product">Bakery</a>
                 </div>
 
             </div>
-
+          </form>
 
         </div>
     @if (products.Count() != 0)
@@ -176,7 +180,15 @@
                         </div>
 
                     }
+                    @if (ViewBag.Products.HasPreviousPage)
+                    {
+                        <a asp-page="Shop" asp-route-category="category" asp-route-searchString="searchString" asp-route-pageIndex="@(ViewBag.Products.PageIndex - 1)" asp-route-pageSize="@ViewBag.Products.PageSize">Previous</a>
+                    }
 
+                    @if (ViewBag.Products.HasNextPage)
+                    {
+                        <a asp-page="Shop" asp-route-category="category" asp-route-searchString="searchString" asp-route-pageIndex="@(ViewBag.Products.PageIndex + 1)" asp-route-pageSize="@ViewBag.Products.PageSize">Next</a>
+                    }
                 </div>
 
 
