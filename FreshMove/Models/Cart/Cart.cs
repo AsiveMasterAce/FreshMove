@@ -9,17 +9,12 @@ namespace FreshMove.Models.Cart
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Id { get; set; } = $"{Guid.NewGuid()}{Guid.NewGuid()}";
-        [ValidateNever]
-        [ForeignKey("Product")]
-        public string ProductID { get; set; }
-        [ValidateNever]
+        
         [ForeignKey("Customer")]
-        public string CustomerID { get; set; }
-
-        public int quantity { get; set; }
-
-        public virtual Product Product { get; set; }
+        public string ?CustomerID { get; set; }
         public virtual Customer Customer { get; set; }
+        public virtual List<CartItem> CartItems { get; set; }
+
 
 
     }

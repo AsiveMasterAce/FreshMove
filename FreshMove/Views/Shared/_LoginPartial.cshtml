@@ -1,10 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using FreshMove.Models.users;
 @using FreshMove.Constants;
+@using FreshMove.Models.Cart;
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
     var user = await UserManager.GetUserAsync(User);
+    
+
 }
 <ul class="navbar-nav pl-3">
     @if (User.IsInRole(RoleConstants.Customer))
@@ -41,7 +44,7 @@
         </li>
         <li class="nav-iten">
 
-            <a asp-action="Cart" asp-controller="Customer" class="nav-link fs-5" asp-route-id="@user.Id"> <i class="bi bi-cart"></i> <span class="bg-danger rounded px-1 text-white"> 0</span></a>
+            <a asp-action="Cart" asp-controller="Cart" class="nav-link fs-5" asp-route-id=""> <i class="bi bi-cart"></i> <span class="bg-danger rounded px-1 text-white"> 0</span></a>
         </li>
    
 }
@@ -56,8 +59,7 @@ else
             <ul class="dropdown-menu pull-right" style="right: 0; left: auto;" aria-labelledby="ProfileToggle">
                 <li><a class="nav-link text-dark dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
                 <li><a class="nav-link text-dark dropdown-item" asp-action="Customer" asp-controller="Register">Register</a></li>
-          
-
+         
             </ul>
             
         </li>

@@ -1,23 +1,28 @@
 ﻿
 using FreshMove.Data;
 using FreshMove.Helpers;
+using FreshMove.Models.Cart;
 using FreshMove.Models.categories;
 using FreshMove.Models.products;
+using FreshMove.Models.users;
 using FreshMove.Models.ViewModels.Shop;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace FreshMove.Controllers
 {
     public class ShopController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public ShopController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public ShopController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
-
+            _userManager= userManager;
         }
         public IActionResult Index()
         {
@@ -62,7 +67,56 @@ namespace FreshMove.Controllers
             ViewBag.Products = paginatedProducts;
             return View();
         }
-       
+
+        [HttpPost]
+        public async Task<ActionResult> AddToCart(string productID)
+        {
+            var product = _context.Products.Where(p => p.Id == productID).FirstOrDefault();
+            var customer = _context.Customers.Where(c => c.UserID == _userManager.GetUserId(User)).FirstOrDefault();
+
+            if (product == null || product==null)
+            {
+                return NotFound();
+            }
+
+            var cart = _context.Cart.FirstOrDefault(c => c.CustomerID == customer.Id);
+
+            if (cart == null)
+            {
+                cart = new Cart
+                {
+                    CustomerID=customer.Id,
+                    CartItems= new List<CartItem>()
+
+                };
+                _context.Cart.Add(cart);
+            }
+
+            var cartItem= cart.CartItems.FirstOrDefault(ci=>ci.ProductID==productID);
+
+            if (cartItem == null)
+            {
+                cartItem = new CartItem
+                {
+                    CartID = cart.Id,
+                    ProductID = product.Id,
+                    Quantity = 1,
+                    TotalPrice = product.Price
+                };
+                _context.CartItems.Add(cartItem);
+
+            }
+            else
+            {
+                cartItem.Quantity++;
+                cartItem.TotalPrice = product.Price * cartItem.Quantity;
+            }
+
+            await _context.SaveChangesAsync();
+             return RedirectToAction("Cart","Cart");
+         
+
+        }
 
     }
 }

@@ -44,7 +44,7 @@ namespace FreshMove.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Suppliers", (string)null);
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("FreshMove.Models.Cart.Cart", b =>
@@ -56,20 +56,39 @@ namespace FreshMove.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProductID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerID");
 
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("FreshMove.Models.Cart.CartItem", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CartID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProductID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartID");
+
                     b.HasIndex("ProductID");
 
-                    b.ToTable("UserCarts", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("FreshMove.Models.categories.Category", b =>
@@ -92,7 +111,7 @@ namespace FreshMove.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("FreshMove.Models.products.Product", b =>
@@ -139,7 +158,7 @@ namespace FreshMove.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("FreshMove.Models.users.ApplicationUser", b =>
@@ -287,7 +306,7 @@ namespace FreshMove.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -435,13 +454,24 @@ namespace FreshMove.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("FreshMove.Models.Cart.CartItem", b =>
+                {
+                    b.HasOne("FreshMove.Models.Cart.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FreshMove.Models.products.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("Cart");
 
                     b.Navigation("Product");
                 });
@@ -514,6 +544,11 @@ namespace FreshMove.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FreshMove.Models.Cart.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

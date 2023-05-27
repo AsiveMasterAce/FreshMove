@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Customer\" />
     <Folder Include="wwwroot\product\" />
   </ItemGroup>
 

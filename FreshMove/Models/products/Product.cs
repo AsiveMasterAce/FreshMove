@@ -22,6 +22,8 @@ namespace FreshMove.Models.products
         [Required]
         public int Quantity { get; set; }
         [Required]
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double Price { get; set; }
         [Required]
         public string productImage { get; set; }
