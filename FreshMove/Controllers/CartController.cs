@@ -34,24 +34,9 @@ namespace FreshMove.Controllers
                 return View(new CartViewModel());
             }
 
-            var cartItems = cart.CartItems.Select(ci => new CartItemViewModel
-            {
-                ProductID = ci.ProductID,
-                productImage=ci.Product.productImage,
-                productName=ci.Product.Name,
-                Quantity= ci.Quantity,
-                TotalPrice= ci.TotalPrice,
-            }).ToList();
+            
 
-            var cartViewModel = new CartViewModel
-            {
-                CartId = cart.Id,
-                CartTotal = cartItems.Sum(ci => ci.TotalPrice),
-                CartItems = cartItems
-               
-            };
-
-            return View(cartViewModel);
+            return View();
         }
         
     }

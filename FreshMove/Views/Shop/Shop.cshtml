@@ -1,6 +1,6 @@
 ﻿@using FreshMove.Models.products;
 @*@model FreshMove.Models.ViewModels.Shop.ShopViewModel*@
-@model List<FreshMove.Models.products.Product>
+@model FreshMove.Models.Cart.AddToCartViewModel
 
 @{
     ViewData["Title"] = "Shop";
@@ -151,16 +151,17 @@
                             <div class="card-body">
 
                                 <h5 class="fw-bold text-capitalize">@product.Name</h5>
-                                <p>R @product.Price</p>
+                                <p> @product.Price.ToString("c")</p>
 
                               
                                <div class="py-2">
                               
                            
-                                   <form asp-action="AddToCart" asp-controller="Shop" method="post">
+                                 <form asp-controller="Shop" asp-action="AddToCart" method="post">
 
+                                
 
-                                     <input  hidden value="@product.Id" name="productID"/>
+                                     <input asp-for="productID" hidden />
                                   
                                      <button class="btn btn-black" type="submit">
                                             
@@ -170,12 +171,8 @@
                                            Add To Bag
                                      
                                      </button>
-
-
-
+                                  </form>
                                    
-                                     
-                                   </form>
                                 </div>
                             
                             </div>
