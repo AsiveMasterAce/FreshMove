@@ -1,0 +1,27 @@
+﻿@model FreshMove.Models.actors.Supplier
+@{
+    ViewData["Title"] = "Delete Supplier";
+}
+
+<div class="container text-center mt-5">
+
+    <div class="mt-5">
+
+        <h2>Are You Sure You Want To Delete This Supplier?</h2>
+        <h3 class="text-muted mt-3 mb-5">@Model.Name</h3>
+        <p class="text-muted mt-3 mb-5">@Model.Email</p>
+
+    </div>
+    <form asp-action="DeleteSupplier" asp-controller="Supplier">
+        <div class="form-group">
+
+            <button class="btn btn-danger" type="submit"> Delete </button>
+            <a class="btn btn-primary" asp-action="Suppliers" asp-controller="Supplier">Back</a>
+
+        </div>
+
+    </form>
+
+</div>
+
+

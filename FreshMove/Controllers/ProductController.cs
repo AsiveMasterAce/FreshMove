@@ -30,6 +30,8 @@ namespace FreshMove.Controllers
         public async Task<IActionResult> Products(string sortOrder, string currentFilter, string searchString, int? pageNumber) 
         {
             ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "Name";
+            ViewData["CategorySortParm"] = String.IsNullOrEmpty(sortOrder) ? "category": "";
 
             if (searchString != null)
             {
@@ -50,15 +52,27 @@ namespace FreshMove.Controllers
             {
                 products = products.Where(p=>p.Name.Contains(searchString) || p.Description.Contains(searchString));
             }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    products = products.OrderByDescending(_u => _u.Name);
+                    break;
+                case "category":
+                    products= products.OrderByDescending(_u => _u.Category.Name);
+                    break;
+                default:
+                    products = products.OrderBy(_u => _u.Name);
+                    break;
 
+            }
             int pageSize = 4;
             return View(await PaginatedList<Product>.CreateAsync(products.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         
         public IActionResult AddProduct()
         {
-            ViewBag.Categories= _context.Categories.OrderBy(c => c.Name).ToList();
-            ViewBag.Supplier= _context.Suppliers.OrderBy(s=>s.Name).ToList();
+            ViewBag.Categories= _context.Categories.Where(c=>c.Archived==false).OrderBy(c => c.Name).ToList();
+            ViewBag.Supplier= _context.Suppliers.Where(s=>s.Archived==false).OrderBy(s=>s.Name).ToList();
 
             return View();
         }
@@ -159,6 +173,51 @@ namespace FreshMove.Controllers
             }
             return View(model);
 
+        }
+
+        [HttpGet]
+        public IActionResult DeleteProduct([FromRoute] string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var product = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
+            if (product == null)
+            {
+
+                return NotFound();
+            }
+
+
+            return View(product);
+        }
+        [HttpPost, ActionName("DeleteProduct")]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> confirmDelete(string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var product = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+
+                product.Archive = true;
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Products");
+
+            }
         }
 
         private string ProcessUploadedFile(AddProductViewModel model)

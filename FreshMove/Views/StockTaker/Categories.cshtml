@@ -1,0 +1,91 @@
+﻿@model List<FreshMove.Models.categories.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="container-fluid mt-4 mx-5">
+
+
+
+
+    <h2 class="mb-5" style="font-weight:600; color:var(--Green);">Categories</h2>
+
+    <div class="d-flex pb-2 mb-4">
+
+      
+    </div>
+
+    <h4 class="mb-5">List of Categories</h4>
+    @if (Model.Count() != 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="align-content-center">
+                @{
+                    int i = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td class="text-wrap">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+
+                        <td>
+                            
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            The List of Categories is Empty
+        </div>
+
+
+    }
+
+</div>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#deleteBtn").click(function () {
+            $("#confirmDelete").modal("show");
+        });
+    });
+
+</script>

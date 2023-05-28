@@ -1,0 +1,25 @@
+﻿@model FreshMove.Models.categories.Category
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<div class="container text-center mt-5">
+
+    <div class="mt-5">
+
+        <h2>Are You Sure You Want To Delete This Category?</h2>
+        <h3 class="text-muted mt-3 mb-5">@Model.Name</h3>
+        
+    </div>
+    <form asp-action="DeleteCategory" asp-controller="StockManager">
+        <div class="form-group">
+
+            <button class="btn btn-danger" type="submit"> Delete </button>
+            <a class="btn btn-primary" asp-action="Categories" asp-controller="StockManager">Back</a>
+            
+        </div>
+
+    </form>
+   
+</div>
+

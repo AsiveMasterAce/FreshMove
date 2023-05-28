@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FreshMove</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href="~/img/logo/favicon.ico" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/LandingSlide.css" asp-append-version="true" />
     <!-- Option 1: Include in HTML -->
@@ -29,6 +30,10 @@
                 {
                  <img src="~/img/auth6.jpg" alt="Sign Up" class="w-100" />
                 }
+                else if (ViewContext.HttpContext.Request.Path == "/Cart/Cart")
+                {
+                <img src="~/img/Auth8.jpg" alt="Sign Up" class="w-100" />
+                }   
                else
                 {
                     <img src="~/img/auth2.jpg" alt="Auth Illustration" class="w-100" />

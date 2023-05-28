@@ -5,8 +5,6 @@
         public string CartId { get; set; }
         public double CartTotal { get; set; }
 
-        public List<CartItemViewModel> CartItems { get; set; }
-
-
+        public virtual HashSet<CartItemViewModel> CartItems { get; set; } = new HashSet<CartItemViewModel>();
     }
 }

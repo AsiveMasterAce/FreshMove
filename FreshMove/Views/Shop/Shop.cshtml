@@ -15,7 +15,7 @@
 
         <div class="col-md-6">
 
-            <div class="shadow rounded-3 p-1 bg-grey">
+            <div class="shadow rounded-3 p-1 bg-greyLight">
 
                 <div class="row justify-content-center">
                     <div class="col-6 mt-3 p-3">
@@ -34,7 +34,7 @@
                 </div>
 
             </div>
-            <div class="shadow rounded-3 p-1 mt-5 bg-grey">
+            <div class="shadow rounded-3 p-1 mt-5 bg-greyLight">
 
                 <div class="row justify-content-center">
                     <div class="col-6 mt-3 p-3">
@@ -56,7 +56,7 @@
 
         </div>
 
-        <div class="col-md-6 shadow rounded-3 bg-grey">
+        <div class="col-md-6 shadow rounded-3 bg-greyLight">
 
             <div class="row">
 
@@ -100,7 +100,7 @@
 
                  <div class="input-group mt-5">
                     <input type="search" class="form-control rounded" placeholder="Search Products" aria-label="Search" aria-describedby="search-addon" name="searchString" id="searchString" />
-                    <input type="submit" class="btn btn-outline-primary" value="search" />
+                    <input type="submit" class="btn btn-outline-primary" value="search" asp-fragment="product" />
                  </div>
               </div>
           
@@ -157,12 +157,12 @@
                                <div class="py-2">
                               
                            
-                                 <form asp-controller="Shop" asp-action="AddToCart" method="post">
+                                 <form asp-controller="Shop" asp-action="AddToCart" >
 
                                 
 
                                      <input asp-for="productID" hidden />
-                                  
+
                                      <button class="btn btn-black" type="submit">
                                             
                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">

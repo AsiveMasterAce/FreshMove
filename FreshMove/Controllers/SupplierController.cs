@@ -1,5 +1,6 @@
 ﻿using FreshMove.Data;
 using FreshMove.Models.actors;
+using FreshMove.Models.categories;
 using FreshMove.Models.users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +28,7 @@ namespace FreshMove.Controllers
 
         public IActionResult Suppliers()
         {
-            var supplier=_context.Suppliers.OrderBy(s=>s.Name).ToList();
+            var supplier=_context.Suppliers.Where(s=>s.Archived==false).OrderBy(s=>s.Name).ToList();
             return View(supplier);
         }
 
@@ -76,15 +77,15 @@ namespace FreshMove.Controllers
 
                 var supplier = _context.Suppliers.Where(s => s.Id == model.Id).FirstOrDefault();
 
-                if(supplier==null)
+                if (supplier == null)
                 {
                     return NotFound();
 
                 }
                 supplier.Archived = model.Archived;
-                supplier.Name= model.Name;
-                supplier.Email= model.Email;
-                supplier.PhysicalAddress= model.PhysicalAddress;
+                supplier.Name = model.Name;
+                supplier.Email = model.Email;
+                supplier.PhysicalAddress = model.PhysicalAddress;
 
                 _context.Suppliers.Update(supplier);
                 await _context.SaveChangesAsync();
@@ -94,7 +95,43 @@ namespace FreshMove.Controllers
             return View(model);
 
         }
+        [HttpGet]
+        public IActionResult DeleteSupplier([FromRoute] string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var supplier = _context.Suppliers.Where(s => s.Id == Id).FirstOrDefault();
+            if (supplier == null)
+            {
+                return NotFound();
+            }
 
+            return View(supplier);
+
+        }
+        [HttpPost, ActionName("DeleteSupplier")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> confirmDelete(string Id)
+        {
+
+            var supplier = _context.Suppliers.Where(s => s.Id == Id).FirstOrDefault();
+            if (supplier == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+
+                supplier.Archived = true;
+                _context.Suppliers.Update(supplier);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Suppliers");
+                
+
+            }
+        }
 
 
     }

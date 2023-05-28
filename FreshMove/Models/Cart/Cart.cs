@@ -13,8 +13,8 @@ namespace FreshMove.Models.Cart
         [ForeignKey("Customer")]
         public string CustomerID { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual List<CartItem> CartItems { get; set; }
-
+      
+        public virtual HashSet<CartItem> CartItems { get; set; } = new HashSet<CartItem>();
 
 
     }

@@ -69,6 +69,7 @@ namespace FreshMove.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddToCart(AddToCartViewModel model)
         {
             var product = _context.Products.Where(p => p.Id == model.productID).FirstOrDefault();
@@ -86,7 +87,7 @@ namespace FreshMove.Controllers
                 cart = new Cart
                 {
                     CustomerID=customer.Id,
-                    CartItems= new List<CartItem>()
+                  
 
                 };
                 _context.Cart.Add(cart);
@@ -113,7 +114,8 @@ namespace FreshMove.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("Cart","Cart");
+
+            return RedirectToAction("Cart","CartController");
          
 
         }

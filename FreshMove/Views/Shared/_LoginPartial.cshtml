@@ -1,12 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using FreshMove.Models.users;
 @using FreshMove.Constants;
-@using FreshMove.Models.Cart;
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
     var user = await UserManager.GetUserAsync(User);
-    
+   
 
 }
 <ul class="navbar-nav pl-3">
@@ -44,7 +43,7 @@
         </li>
         <li class="nav-iten">
 
-            <a asp-action="Cart" asp-controller="Cart" class="nav-link fs-5" asp-route-id=""> <i class="bi bi-cart"></i> <span class="bg-danger rounded px-1 text-white"> 0</span></a>
+            <a asp-action="Cart" asp-controller="Cart" class="nav-link fs-5" asp-route-id=""> <i class="bi bi-cart"></i> <span class="bg-danger rounded px-1 text-white"></span></a>
         </li>
    
 }

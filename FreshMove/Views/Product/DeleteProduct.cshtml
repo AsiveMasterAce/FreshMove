@@ -1,0 +1,27 @@
+﻿@model FreshMove.Models.products.Product
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<div class="container text-center mt-5">
+
+    <div class="mt-5">
+
+        <h2>Are You Sure You Want To Remove This Product?</h2>
+        <h3 class="text-muted mt-3 mb-5">@Model.Name</h3>
+        <img src="~/product/@Model.productImage" alt="@Model.Name +@Model.Description" class="card-img-top" />
+        <p>@Model.Description</p>
+
+    </div>
+    <form asp-action="DeleteProduct" asp-controller="Product">
+        <div class="form-group">
+
+            <button class="btn btn-danger" type="submit"> Delete </button>
+            <a class="btn btn-primary" asp-action="Products" asp-controller="Product">Back</a>
+
+        </div>
+
+    </form>
+
+</div>
+

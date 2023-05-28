@@ -34,11 +34,11 @@ namespace FreshMove.Controllers
 
         //public async Task<ActionResult> AddToBag(string prouductID, int Quantity)
         //{
-        //    var customer= _context.Customers.Where(c=>c.UserID==_userManager.GetUserId(User)).FirstOrDefault();
+        //    var customer = _context.Customers.Where(c => c.UserID == _userManager.GetUserId(User)).FirstOrDefault();
 
-        //    var bagItem= _context.Cart;
+        //    var bagItem = _context.Cart;
 
-        //    if (bagItem!=null)
+        //    if (bagItem != null)
         //    {
         //        bagItem.quantity += Quantity;
 
@@ -51,16 +51,16 @@ namespace FreshMove.Controllers
         //            ProductID = prouductID,
         //            quantity = Quantity,
         //            CustomerID = customer.UserID
-                   
+
         //        };
         //        _context.Add(bagItem);
         //    }
 
-            
+
         //    await _context.SaveChangesAsync();
 
         //    return View();
         //}
-        
+
     }
 }

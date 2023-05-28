@@ -16,7 +16,7 @@
     <h2 class="mb-5" style="font-weight:600; color:var(--Green);">Products</h2>
 
     <div class="d-flex pb-2 mb-4">
-         @if (User.IsInRole(RoleConstants.StockManager))
+        @if (User.IsInRole(RoleConstants.StockManager) || User.IsInRole(RoleConstants.StockTaker))
         {
             <div class="">
                 <h4 style="font-weight:600;">Add A New Product </h4>
@@ -59,9 +59,23 @@
                         
                     <th>
                          Product Name
+                        <a class="text-black text-decoration-none ms-auto" asp-controller="Product" asp-action="Products" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+
+                            <i class="bi bi-sort-alpha-down"></i>
+
+                            <i class="bi bi-sort-alpha-up"></i>
+
+                        </a>
                     </th> 
                     <th>
                          Category
+                        <a class="text-black text-decoration-none ms-auto" asp-controller="Product" asp-action="Products" asp-route-sortOrder="@ViewData["CategorySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+
+                       
+
+                            <i class="bi bi-sort-alpha-up"></i>
+
+                        </a>
                     </th>
                     <th>
                         Description
@@ -110,13 +124,13 @@
                             R @item.Price
                         </td>
 
-                        @if (User.IsInRole(RoleConstants.StockManager))
+                        @if (User.IsInRole(RoleConstants.StockManager) || User.IsInRole(RoleConstants.StockTaker))
                         {
 
                           <td>
                             <a asp-action="EditProduct" asp-controller="Product" asp-route-id="@item.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |
 
-                            <a asp-action="" asp-controller="" asp-route-id="@item.Id">  <i class="bi bi-trash2" style="color:#ae2012"> </i> </a>
+                            <a asp-action="DeleteProduct" asp-controller="Product" asp-route-id="@item.Id">  <i class="bi bi-trash2" style="color:#ae2012"> </i> </a>
                          </td>
                         }
                         else{

@@ -1,5 +1,8 @@
 ﻿@model List<FreshMove.Models.actors.Supplier>
-
+@using FreshMove.Models.users;
+@using Microsoft.AspNetCore.Identity
+@using FreshMove.Constants;
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Suppliers";
 }
@@ -12,13 +15,21 @@
     <h2 class="mb-5" style="font-weight:600; color:var(--Green);">Suppliers</h2>
 
     <div class="d-flex pb-2 mb-4">
+        @if (User.IsInRole(RoleConstants.StockManager))
+        {
+            <div class="">
+                <h4 style="font-weight:600;">Add A New Supplier </h4>
+            </div>
+            <div class="ms-auto">
+                <a class="btn btn-primary" asp-action="AddSupplier" asp-controller="Supplier"> Add Supplier</a>
+            </div>
+        }
+        else
+        {
 
-        <div class="">
-            <h4 style="font-weight:600;">Add A New Supplier </h4>
-        </div>
-        <div class="ms-auto">
-            <a class="btn btn-primary" asp-action="AddSupplier" asp-controller="Supplier"> Add Supplier</a>
-        </div>
+            
+        }
+        
     </div>
 
     <h4 class="mb-5">List of suppliers</h4>
@@ -64,11 +75,21 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.PhysicalAddress)
                         </td>
-                        <td>
-                            <a asp-action="EditSupplier" asp-controller="Supplier" asp-route-id="@item.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |
+                        @if (User.IsInRole(RoleConstants.StockManager))
+                        {
+                            <td>
+                                <a asp-action="EditSupplier" asp-controller="Supplier" asp-route-id="@item.Id"> <i class="bi bi-pen " style="color:#023047"></i></a> |
 
-                            <a asp-action="" asp-controller="Admin" asp-route-id="@item.Id">  <i class="bi bi-trash2" style="color:#ae2012"> </i> </a>
-                        </td>
+                                <a asp-action="DeleteSupplier" asp-controller="Supplier" asp-route-id="@item.Id">  <i class="bi bi-trash2" style="color:#ae2012"> </i> </a>
+                            </td>
+                        }
+                        else
+                        {
+                            
+                            <td>
+
+                            </td>
+                        }
                     </tr>
                 }
                 

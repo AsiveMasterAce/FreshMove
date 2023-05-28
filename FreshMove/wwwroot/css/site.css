@@ -10,6 +10,7 @@
     --Green: #606c38;
     --redish: #e76f51;
     --grey2nd: #eff1eda3;
+    --grey3rd: #eff1ed08;
     --darkGrey: #606c381a;
     --grey: #f5f3f4;
     --black: #242423;
@@ -74,7 +75,9 @@ body {
 .bg-grey{
     background-color: var(--grey2nd);
 }
-
+.bg-greyLight{
+    background-color:var(--grey3rd);
+}
 .btn-primary:hover {
         background-color: var(--secondary);
         border: none;
