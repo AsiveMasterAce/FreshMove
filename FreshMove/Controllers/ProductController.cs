@@ -109,8 +109,14 @@ namespace FreshMove.Controllers
         public IActionResult EditProduct([FromRoute] string ID)
         {
             var product = _context.Products.Where(p=>p.Id==ID).FirstOrDefault();
-            ViewBag.Categories = _context.Categories.OrderByDescending(c => c.Name).ToList();
-            ViewBag.Supplier = _context.Suppliers.ToList();
+            if (product == null)
+            {
+
+                return NotFound();
+            }
+
+            ViewBag.Categories = _context.Categories.Where(c => c.Archived == false).OrderBy(c => c.Name).ToList();
+            ViewBag.Supplier = _context.Suppliers.Where(s => s.Archived == false).OrderBy(s => s.Name).ToList();
 
             var editProduct = new EditProductViewModel
             {
@@ -193,6 +199,7 @@ namespace FreshMove.Controllers
 
             return View(product);
         }
+
         [HttpPost, ActionName("DeleteProduct")]
         [ValidateAntiForgeryToken]
 

@@ -1,10 +1,12 @@
 ﻿@using FreshMove.Models.products;
+@using System.Globalization;
 @*@model FreshMove.Models.ViewModels.Shop.ShopViewModel*@
 @model FreshMove.Models.Cart.AddToCartViewModel
 
 @{
     ViewData["Title"] = "Shop";
     var products = ViewBag.Products as IEnumerable<Product>;
+    var southAfricanCulture = CultureInfo.CreateSpecificCulture("en-ZA");
 }
 
 <div class="container mb-4">
@@ -151,7 +153,7 @@
                             <div class="card-body">
 
                                 <h5 class="fw-bold text-capitalize">@product.Name</h5>
-                                <p> @product.Price.ToString("c")</p>
+                                <p> @product.Price.ToString("C",southAfricanCulture)</p>
 
                               
                                <div class="py-2">
@@ -182,12 +184,12 @@
                     }
                     @if (ViewBag.Products.HasPreviousPage)
                     {
-                        <a asp-page="Shop" asp-route-category="category" asp-route-searchString="searchString" asp-route-pageIndex="@(ViewBag.Products.PageIndex - 1)" asp-route-pageSize="@ViewBag.Products.PageSize">Previous</a>
+                        <a asp-page="/Shop" asp-route-category="All" asp-route-searchString="searchString" asp-route-pageIndex="@(ViewBag.Products.PageIndex - 1)" asp-route-pageSize="@ViewBag.Products">Previous</a>
                     }
 
                     @if (ViewBag.Products.HasNextPage)
                     {
-                        <a asp-page="Shop" asp-route-category="category" asp-route-searchString="searchString" asp-route-pageIndex="@(ViewBag.Products.PageIndex + 1)" asp-route-pageSize="@ViewBag.Products.PageSize">Next</a>
+                        <a  asp-page="/Shop" asp-route-category="All" asp-route-searchString="searchString" asp-route-pageIndex="@(ViewBag.Products.PageIndex + 1)" asp-route-pageSize="@ViewBag.Products">Next</a>
                     }
 
                     <div class="mt-2">

@@ -30,7 +30,7 @@ namespace FreshMove.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Shop(string category, string searchString,int pageIndex = 1, int pageSize = 8)
+        public async Task<IActionResult> Shop(string category, string searchString,int pageIndex = 1, int pageSize=0)
         {
 
             var products = _context.Products.Where(p => p.Archive == false);
@@ -56,6 +56,7 @@ namespace FreshMove.Controllers
                     products = products;
                     break;
             }
+            pageSize = 12;
 
             if (!String.IsNullOrEmpty(searchString))
             {
